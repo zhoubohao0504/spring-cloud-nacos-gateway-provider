@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zbh.gatewayroute.dao.UsersDao">
+
+    <select id="getAll" resultType="com.zbh.gatewayroute.entity.Users">
+        select * from users
+    </select>
+
+    <select id="getTopGroupUser" resultType="com.zbh.gatewayroute.entity.Users">
+        select * from users where userGroup = 1
+    </select>
+
+    <select id="getRandomUser" resultType="com.zbh.gatewayroute.entity.Users">
+        select * from users order by rand() limit 1
+    </select>
+</mapper>
