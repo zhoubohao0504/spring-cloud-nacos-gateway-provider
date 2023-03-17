@@ -1,1 +1,20 @@
-readme
+针对不同用户组设置不同的访问地址，区别出灰度环境与正式环境
+
+nocas配置中心配置
+
+gateway.yaml
+
+spring:
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 2000
+        response-timeout: 10s
+      routes:
+        - id: web
+          uri: lb://spring-cloud-nacos-gateway-provider
+          order: 0
+          predicates:
+            - Path=/web/**
+          filters:
+            - StripPrefix=1 # 去除请求地址中的前缀
