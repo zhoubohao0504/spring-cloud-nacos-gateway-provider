@@ -14,11 +14,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Component
-public class EnvRoundRobinRunle extends RoundRobinRule {
+public class EnvRoundRobinRule extends RoundRobinRule {
 
     private AtomicInteger nextServerCyclicCounter;
 
-    public EnvRoundRobinRunle( ){
+    public EnvRoundRobinRule( ){
         this.nextServerCyclicCounter = new AtomicInteger(0);
     }
 
