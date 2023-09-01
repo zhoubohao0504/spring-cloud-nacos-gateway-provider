@@ -1,14 +1,26 @@
+针对不同用户组设置不同的访问地址，区别出灰度环境与正式环境
+
+nocas配置中心配置
+
+gateway.yaml
+
+spring:
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 2000
+        response-timeout: 10s
+      routes:
+        - id: web
+          uri: lb://spring-cloud-nacos-gateway-provider
+          order: 0
+          predicates:
+            - Path=/web/**
+          filters:
+            - StripPrefix=1 # 去除请求地址中的前缀
 1.在数据库中标记好那些用户是需要访问灰度版本并且将这些数据缓存起来
 2.缓存完成以后当用户访问系统的时候获取到当前的登录用户信息去缓存中匹配是否存在
 3.对于存在的用户通过ThreadLocal来设置其访问的版本
 4.在路由设置获取到所有的注册的应用实例
 5.获取应用实例中的metadata中保存的版本信息与用户需要访问的版本信息进行比对
 6.设置用户访问的版本实例
-
-
-相关配置
-redis：127.0.0.1:6379 password redis
-nacos：127.0.0.1:8848 命令行启动 startup.cmd -m standalone
-访问地址： gateway的端口+设置的route里面的path+真实的访问方法
-例如：http://127.0.0.1:7777/web/getTest
-7777为gateway服务的端口 web是指定的那些访问路径需要被路由 getTest则为nacos项目中的controller路径
